@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)4x&x1ud$ze26n$=n=9*ekjy2+3o5b7-uo9s!pxlqj_!#e=x81'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ["127.0.0.1", 'cinemix-main.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ["127.0.0.1", 'cinemix-main.herokuapp.com/', 'localhost', '*']
 ADMINS = [('nuhan', 'nuhankhan101@gmail.com'),]
 # Application definition
 
