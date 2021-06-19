@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Cinemix</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'moviesite/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'moviesite/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'moviesite/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'moviesite/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'moviesite/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'moviesite/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'moviesite/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'moviesite/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'moviesite/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Template Main CSS File -->
+  <link href="{% static 'moviesite/assets/css/style.css' %}" rel="stylesheet">
+  <!--<link href="{% static 'moviesite/assets/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">-->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto "><a style="color: rgb(255,255,255)"> <a class="logo me-auto"><img src="{% static 'moviesite/assets/img/main-logo.png' %}" alt="" class="img-fluid"/>inemix</h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li>
+            <form action="#" method="get" style="margin-left: 25px;">
+              <input size="30" type="text" name="movie_search" class="form-control" placeholder="Enter A Movie Name "/>
+            </form>
+        </li>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">Extended Results</a></li>
+          <li><a class="nav-link scrollto" href="#services">Deep Search</a></li>
+          <!--<li><a class="nav-link scrollto" href="#portfolio">Most Popular</a></li>-->
+          <!--
+          <li><a class="nav-link scrollto" href="#team">Recent</a></li>
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Recommended</a></li>-->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center" style="background-color: rgb(19, 53, 83);">
+    <div id="heroCarousel" width="1000px" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <h1>{{desc.0.title}}</h1>
+                <h2>{{desc.0.genre}}<br>
+                    {{desc.0.plot}}<br>
+                    Directed By: {{desc.0.director}}
+                  </h2>
+                <div class="d-flex justify-content-center justify-content-lg-start">
+                  <a href="#about" class="btn-get-started" style="margin-bottom: 100px;" data-toggle="modal"  data-target="#exampleModal{{desc.0.imdb_id}}">Full Description</a>
+                  <a href="https://www.youtube.com/watch?v=Y1wdBLxA-Kg" class="glightbox btn-watch-video" style="margin-bottom: 100px;"><i class="bi bi-play-circle"></i><span>Watch Trailer</span></a>
+                </div>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src = {{desc.0.poster}} class="img-fluid poster-src" style="width: 700px;"  alt=""/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{desc.0.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" style="height: 580px;">
+              <div class="modal-header" style="background-color: #47b2e4;">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;">{{desc.0.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="card movie_card">
+                <img src="{{desc.0.poster}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <a href="https://www.youtube.com/watch?v=Y1wdBLxA-Kg" target="_blank">
+                    <i class=" play_button" style="font-size: 40px;" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
+                      <i class="bi bi-play" style="position: absolute; right: 6px; bottom: .1px;"></i>
+                    </i>
+                  </a>
+                  <h5 class="card-title">{{desc.0.runtime}}</h5>
+                    <span class="movie_info">{{desc.0.year}}</span>
+                    <span class="movie_info float-right"><i class="fas fa-star"></i>{{desc.0.ratings.1.value}}</span>
+                </div>
+              </div>
+              <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+              <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+              <script>
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+              })
+              </script>
+              <div style="position:relative; left:260px; right: 350px; width: 250px; bottom:480px;">
+                <h5 style="color: black;">Plot:</h5>
+                <p style="color: black;">{{desc.0.plot_full}}</p>
+                <br>
+                <h5></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- Slide 1 -->
+      {% for movie in desc_rem %}  
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <div class="container">
+            <div class="row carousel-fade">
+              <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <h1>{{movie.title}}</h1>
+                <h2>{{movie.genre}}<br>
+                    {{movie.plot}}<br>
+                    Directed By: {{movie.director}}<br>
+                </h2>
+                <div class="d-flex justify-content-center justify-content-lg-start hero-btn-pos">
+                  <a href="#about" class="btn-get-started " style="margin-bottom: 100px;" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">Full Description</a>
+                  <a href="https://www.youtube.com/watch?v=Y1wdBLxA-Kg" class="glightbox btn-watch-video" style="margin-bottom: 100px;"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                </div>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src = {{movie.poster}} class="img-fluid poster-src" style="width: 700px;"  alt=""/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- Modal -->
+      <div class="modal fade" id="exampleModal{{movie.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="height: 580px;">
+            <div class="modal-header" style="background-color: #47b2e4;">
+              <h5 class="modal-title" id="exampleModalLabel" style="color: white;">{{movie.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="card movie_card">
+              <img src="{{movie.poster}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <a href="https://www.youtube.com/watch?v=Y1wdBLxA-Kg" target="_blank">
+                  <i class=" play_button" style="font-size: 40px;" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
+                    <i class="bi bi-play" style="position: absolute; right: 6px; bottom: .1px;"></i>
+                  </i>
+                </a>
+                <h5 class="card-title">{{movie.runtime}}</h5>
+                  <span class="movie_info">{{movie.year}}</span>
+                  <span class="movie_info float-right"><i class="fas fa-star"></i>{{movie.ratings.1.value}}</span>
+              </div>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+            <script>
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+            </script>
+            <div style="position:relative; left:260px; right: 350px; width: 250px; bottom:480px;">
+              <h5 style="color: black;">Plot:</h5>
+              <p style="color: black;">{{movie.plot_full}}</p>
+              <br>
+              <h5></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true" style="margin-right: 100px;margin-bottom: 120px;"></span>
+    </a>
+
+    <a class="carousel-control-next" href="#heroCarousel"role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true" style="margin-left: 100px;margin-bottom: 120px;"></span>
+    </a>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Slider Section ======= -->
+    <section id="about" style="background-color: rgb(9, 28, 44); height: 360px;">
+      <h4 style="color: white; position:relative; left: 20px; bottom: 20px; font-family: 'Courier New', monospace;">Extended Results</h4>
+      <div class="wrapper" style="position: relative; bottom: 100px;">
+        <section id="section1">
+          <a href="#section3" class="arrow__btn left-arrow" style="padding-top: 65px;">‹</a>
+          {% for movie in movie_sect1 %}
+          <div class="item" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">
+            <a href="#">
+              <img 
+                style="height: 192px; width: 341px; object-fit: cover;"
+                src={{movie.poster}}
+                alt="Describe Image">
+                <p class="heading">{{movie.title}}</p>
+                <p class="duration">{{movie.runtime}}</p>
+            </a>
+          </div>
+          {% endfor %}
+          <a href="#section2" class="arrow__btn right-arrow" style="padding-top: 65px;">›</a>
+        </section>
+      
+        <section id="section2">
+          <a href="#section1" class="arrow__btn left-arrow" style="padding-top: 65px;">‹</a>
+          {% for movie in movie_sect2 %}
+            <div class="item" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">
+              <a href="#">
+                <img 
+                  style="height: 192px; width: 341px; object-fit: cover;"
+                  src={{movie.poster}}
+                  alt="Describe Image">
+                  <p class="heading">{{movie.title}}</p>
+                  <p class="duration">{{movie.runtime}}</p>
+              </a>
+            </div>
+          {% endfor %}
+          <a href="#section3" class="arrow__btn right-arrow" style="padding-top: 65px;">›</a>
+        </section>
+      
+        <section id="section3">
+          <a href="#section2" class="arrow__btn left-arrow" style="padding-top: 65px;">‹</a>
+          {% for movie in movie_sect3 %}
+          <div class="item" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">
+            <a href="#">
+              <img 
+                style="height: 192px; width: 341px; object-fit: cover;"
+                src={{movie.poster}}
+                alt="Describe Image">
+                <p class="heading">{{movie.title}}</p>
+                <p class="duration">{{movie.runtime}}</p>
+            </a>
+          </div>
+          {% endfor %}
+          {% for movie in movie_rem%}
+          <div class="modal fade" id="exampleModal{{movie.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" style="height: 580px;">
+                <div class="modal-header" style="background-color: #47b2e4;">
+                  <h5 class="modal-title" id="exampleModalLabel" style="color: white;">{{movie.title}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="card movie_card">
+                  <img src="{{movie.poster}}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <a href="https://www.youtube.com/watch?v=Y1wdBLxA-Kg" target="_blank">
+                      <i class=" play_button" style="font-size: 40px;" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
+                        <i class="bi bi-play" style="position: absolute; right: 6px; bottom: .1px;"></i>
+                      </i>
+                    </a>
+                    <h5 class="card-title">{{movie.runtime}}</h5>
+                      <span class="movie_info">{{movie.year}}</span>
+                      <span class="movie_info float-right"><i class="fas fa-star"></i>{{movie.ratings.1.value}}</span>
+                  </div>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+                <script>
+                  $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+                </script>
+                <div style="position:relative; left:260px; right: 350px; width: 250px; bottom:480px;">
+                  <h5 style="color: black;">Plot:</h5>
+                  <p style="color: black;">{{movie.plot}}</p>
+                  <br>
+                  <h5></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <a href="#section1" class="arrow__btn right-arrow" style="padding-top: 65px;">›</a>
+        </section>
+      </div>
+    </section><!-- End Slider Section -->
+
+    <!-- ======= Team Section ======= -->
+    <section id="services" class="team section-bg" style="background-color: rgb(6, 20, 32);">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Deep Search</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="member d-flex align-items-start" style = "background-color: #021433;" data-aos="zoom-in" data-aos-delay="300">
+              <img src="{{deep_movies.0.poster}}" style="width: 180px;" class="img-fluid" alt="">
+              <div class="member-info" style="color: white;">
+                <h4>{{deep_movies.0.title}}</h4>
+                <span>Plot</span>
+                <p>{{deep_movies.0.plot}}</p>
+                <br>
+                <span>Genre</span>
+                <p>{{deep_movies.0.genre}}</p>
+                                <span class="movie_info float-right" style="color:rgb(11, 141, 255)"><i class="fas fa-star"></i>{{deep_movies.0.ratings.1.value}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="member d-flex align-items-start" style = "background-color: #021433;" data-aos="zoom-in" data-aos-delay="300">
+              <img src="{{deep_movies.1.poster}}" style="width: 180px;" class="img-fluid" alt="">
+              <div class="member-info" style="color: white;">
+                <h4>{{deep_movies.1.title}}</h4>
+                <span>Plot</span>
+                <p>{{deep_movies.1.plot}}</p>
+                <br>
+                <span>Genre</span>
+                <p>{{deep_movies.1.genre}}</p>
+                <span class="movie_info float-right" style="color:rgb(11, 141, 255)"><i class="fas fa-star"></i>{{deep_movies.1.ratings.1.value}}</span>
+              </div>
+            </div>
+          </div>
+          {% for movie in deep_movies %}
+          {% if forloop.counter0 >= 2 %}
+          <div class="col-lg-6 mt-4">
+            <div class="member d-flex align-items-start" style = "background-color: #021433;" data-aos="zoom-in" data-aos-delay="300">
+              <img src="{{movie.poster}}" style="width: 180px;" class="img-fluid" alt="">
+              <div class="member-info" style="color: white;">
+                <h4>{{movie.title}}</h4>
+                <span>Plot</span>
+                <p>{{movie.plot}}</p>
+                <br>
+                <span>Genre</span>
+                <p>{{movie.genre}}</p>
+                <span class="movie_info float-right" style="color:rgb(11, 141, 255)"><i class="fas fa-star"></i>{{movie.ratings.1.value}}</span>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Team Section -->
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Made By <strong><span>Walid Khan</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'moviesite/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'moviesite/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'moviesite/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'moviesite/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'moviesite/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'moviesite/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'moviesite/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'moviesite/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
