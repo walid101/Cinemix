@@ -43,7 +43,7 @@ def home(request):
     if(request.GET.get('movie_search')):
          movie_list = [] #Movie List for Top carousel
          base_string = request.GET.get('movie_search')
-         movie_list = get_movie(base_string, movie_list, 0, 3)
+         movie_list = get_movie(base_string, movie_list, 0, 2)
          #movie_main = pageValPair(movie_list, 5)
          movie_descs = getDescsFromMovies(movie_list)
          movie_sects = movie_descs.copy()
