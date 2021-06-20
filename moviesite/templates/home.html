@@ -361,6 +361,68 @@
           {% endfor %}
         </div>
       </div>
+      <style>
+        .pagination {
+          display: inline-block;
+        }
+        
+        .pagination a {
+          float: left;
+          padding: 8px 16px;
+          text-decoration: none;
+          transition: background-color .3s;
+          color:rgb(11, 141, 255);
+        }
+        
+        .pagination a.active {
+          background-color: #4CAF50;
+          color: white;
+        }
+        
+        .pagination a:hover:not(.active) {background-color: #ddd;}
+        </style>
+        <script>
+          function getUrl() {
+            return window.location.href;
+          }
+          function httpGet(theUrl)
+          {
+              var http = new XMLHttpRequest();
+              http.open( "GET", theUrl, true ); // false for synchronous request\
+              http.send( 'name=Walid' );
+          }
+          function post(path, key, val, method='get') {
+            // The rest of this code assumes you are not using a library.
+            // It can be made less verbose if you use one.
+            const form = document.createElement('form');
+            form.method = method;
+            form.action = path;
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = "url";
+            hiddenField.value = getUrl();
+            form.appendChild(hiddenField);
+
+            const extraField = document.createElement('input');
+            extraField.type = 'hidden';
+            extraField.name = key;
+            extraField.value = val;
+            form.appendChild(extraField);
+            document.body.appendChild(form);
+            form.submit();
+          }
+        </script>
+          <div class="pagination" style="padding-left: 38%;padding-top: 70px;text-align: center;">
+            <form action="page" method="get" style="margin-left: 25px;">
+              <a href="page">&laquo;</a>
+              <a href="javascript:post('page', 'page_num', '1')">1</a>
+              <a href="javascript:post('page', 'page_num', '2')" class="active">2</a>
+              <a href="javascript:post('page', 'page_num', '3')">3</a>
+              <a href="javascript:post('page', 'page_num', '4')">4</a>
+              <a href="javascript:post('page', 'page_num', '5')">5</a>
+              <a href="page">&raquo;</a>
+            </form>
+          </div>
     </section><!-- End Team Section -->
   </main><!-- End #main -->
 

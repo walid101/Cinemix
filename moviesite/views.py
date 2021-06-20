@@ -64,5 +64,8 @@ async def home(request):
 
 def page(request):
      print("new page requested!")
+     print("Request : " + str(request.GET))
+     return render(request, context={"desc": [], "desc_rem": [], "movie_sect1": [],
+                                                 "movie_sect2": [], "movie_sect3": [],"movie_rem": [],"deep_movies": []},)
 
      
