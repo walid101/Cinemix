@@ -8,7 +8,7 @@ num_sections = 3 #number of sections in our slides (we can increase this if we w
 def getDescsFromMovies(list):
      deep_movie_desc = []
      for movie in list:
-          temp_sect = client.get(title = movie["title"], tomatoes=True)
+          temp_sect = client.get(title = movie["title"], tomatoes=False)
           if(temp_sect["poster"] != "N/A"):
                if(len(temp_sect["plot"]) > char_lim):
                     temp_sect["plot_full"] = temp_sect["plot"]
@@ -58,7 +58,7 @@ def home(request):
     movie_sects = []
     counter = 0
     for movie in movie_list:
-               movie_descs.append(client.get(title=movie["title"], tomatoes=True))
+               movie_descs.append(client.get(title=movie["title"], tomatoes=False))
                curr_desc = movie_descs[counter]
                movie_descs[counter]["plot_full"] = movie_descs[counter]["plot"]
                if(len(curr_desc["plot"]) > char_lim):
@@ -78,7 +78,7 @@ def home(request):
                         limit_reached = True
                         break
                    else:
-                        temp_sect = client.get(title = movie["title"], tomatoes=True)
+                        temp_sect = client.get(title = movie["title"], tomatoes=False)
                         if temp_sect["poster"] != "NA":
                              movie_sects.append(temp_sect)
     return render(request, 'home.html', context={"desc": movie_descs, "desc_rem":movie_descs[1:], "movie_sect1": movie_sects[0:4],
