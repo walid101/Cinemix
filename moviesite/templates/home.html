@@ -27,7 +27,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Template Main CSS File -->
   <link href="{% static 'moviesite/assets/css/style.css' %}" rel="stylesheet">
-  <!--<link href="{% static 'moviesite/assets/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">-->
 </head>
 
 <body>
@@ -37,7 +36,6 @@
     <div class="container d-flex align-items-center">
 
       <h1 class="logo me-auto "><a style="color: rgb(255,255,255)"> <a class="logo me-auto"><img src="{% static 'moviesite/assets/img/main-logo.png' %}" alt="" class="img-fluid"/>inemix</h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
       <nav id="navbar" class="navbar">
         <ul>
           <li>
@@ -48,11 +46,6 @@
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">Extended Results</a></li>
           <li><a class="nav-link scrollto" href="#services">Deep Search</a></li>
-          <!--<li><a class="nav-link scrollto" href="#portfolio">Most Popular</a></li>-->
-          <!--
-          <li><a class="nav-link scrollto" href="#team">Recent</a></li>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Recommended</a></li>-->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -126,7 +119,7 @@
             </div>
           </div>
         </div>
-      <!-- Slide 1 -->
+      <!-- Slides -->
       {% for movie in desc_rem %}  
       <div class="carousel-item">
         <div class="carousel-container">
@@ -303,7 +296,7 @@
       </div>
     </section><!-- End Slider Section -->
 
-    <!-- ======= Team Section ======= -->
+    <!-- ======= Deep Movies Section ======= -->
     <section id="services" class="team section-bg" style="background-color: rgb(6, 20, 32);">
       <div class="container" data-aos="fade-up">
 
@@ -421,11 +414,6 @@
         </script>
           <div class="pagination" style="padding-left: 41%;padding-top: 70px;text-align: center;">
             <form action="page" method="get" style="margin-left: 25px;">
-              <!--<a href="javascript:post('page', 'page_num', '1')">1</a>
-              <a href="javascript:post('page', 'page_num', '2')" class="active">2</a>
-              <a href="javascript:post('page', 'page_num', '3')">3</a>
-              <a href="javascript:post('page', 'page_num', '4')">4</a>
-              <a href="javascript:post('page', 'page_num', '5')">5</a>-->
               {% for page in pages %}
                 {% if page_num != page%}
                   <a href="javascript:post('page', 'page_num', {{page}})">{{page}}</a>
@@ -436,7 +424,7 @@
             </form>
           </div>
       {% endif %}  
-    </section><!-- End Team Section -->
+    </section><!-- End Deep Movies Section -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
