@@ -31,13 +31,7 @@ class pageValPair:
      def __init__(self, list, pageNum):
           self.list = list
           self.pageNum = pageNum
-'''
-test_list = get_movie("Superman", [], 5, 0)
-print(test_list)
-print(" \n AND DESCS: \n")
-desc_list = getDescsFromMovies(test_list)
-print(desc_list)
-'''
+
 async def home(request):
     #Begin Initial Search
     if(request.GET.get('movie_search')):
@@ -49,10 +43,8 @@ async def home(request):
          movie_descs = getDescsFromMovies(movie_list)
          movie_sects = movie_descs.copy()
          return render(request,'home.html', context={"desc": movie_descs, "desc_rem": movie_descs[1:], "movie_sect1": movie_sects[0:4],
-                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):], "deep_movies": movie_sects},)
-
-    
-    #Landing search when user first lands on homepage
+                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):], "deep_movies": movie_sects,
+                                                 "show_page": 1, "page_num": 1, "pages": [1,2,3,4,5],},)
     base_string = "Superman"
     movie_list = [] #Movie List for Top carousel
     movie_list = get_movie(base_string, movie_list, 0, 2)
@@ -60,12 +52,25 @@ async def home(request):
     movie_descs = getDescsFromMovies(movie_list)
     movie_sects = movie_descs.copy()
     return render(request, 'home.html', context={"desc": movie_descs, "desc_rem":movie_descs[1:], "movie_sect1": movie_sects[0:4],
-                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):],"deep_movies": movie_sects},) #{} is context dictionary
+                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):],"deep_movies": movie_sects,
+                                                 "show_page": -1, "page_num": -1, "pages": [1,2,3,4,5],},) #{} is context dictionary
 
 def page(request):
      print("new page requested!")
      print("Request : " + str(request.GET))
-     return render(request, context={"desc": [], "desc_rem": [], "movie_sect1": [],
-                                                 "movie_sect2": [], "movie_sect3": [],"movie_rem": [],"deep_movies": []},)
+     init_url = request.GET.get("url")
+     search_pos = init_url.find("movie_search=") #movie_search => 12 chars
+     base_string = init_url[search_pos+13:].replace("+", " ")
 
-     
+     print("BASE STRING: " + base_string)
+     page_num = int(request.GET.get("page_num"))
+     print("PAGE NUM: " + str(page_num))
+
+     movie_list = [] #Movie List for Top carousel
+     movie_list = get_movie(base_string, movie_list, 2*page_num-2, 2*page_num)
+     #movie_main = pageValPair(movie_list, 5)
+     movie_descs = getDescsFromMovies(movie_list)
+     movie_sects = movie_descs.copy()
+     return render(request,'home.html', context={"desc": movie_descs, "desc_rem": movie_descs[1:], "movie_sect1": movie_sects[0:4],
+                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):], "deep_movies": movie_sects,
+                                                 "show_page": 1, "page_num": page_num, "pages": [1,2,3,4,5],},)

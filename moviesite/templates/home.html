@@ -41,7 +41,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li>
-            <form action="#" method="get" style="margin-left: 25px;">
+            <form action="search" method="get" style="margin-left: 25px;">
               <input size="30" type="text" name="movie_search" class="form-control" placeholder="Enter A Movie Name "/>
             </form>
         </li>
@@ -361,6 +361,7 @@
           {% endfor %}
         </div>
       </div>
+      {% if show_page == 1 %}
       <style>
         .pagination {
           display: inline-block;
@@ -414,15 +415,21 @@
         </script>
           <div class="pagination" style="padding-left: 38%;padding-top: 70px;text-align: center;">
             <form action="page" method="get" style="margin-left: 25px;">
-              <a href="page">&laquo;</a>
-              <a href="javascript:post('page', 'page_num', '1')">1</a>
+              <!--<a href="javascript:post('page', 'page_num', '1')">1</a>
               <a href="javascript:post('page', 'page_num', '2')" class="active">2</a>
               <a href="javascript:post('page', 'page_num', '3')">3</a>
               <a href="javascript:post('page', 'page_num', '4')">4</a>
-              <a href="javascript:post('page', 'page_num', '5')">5</a>
-              <a href="page">&raquo;</a>
+              <a href="javascript:post('page', 'page_num', '5')">5</a>-->
+              {% for page in pages %}
+                {% if page_num != page%}
+                  <a href="javascript:post('page', 'page_num', {{page}})">{{page}}</a>
+                {% else %}
+                  <a href="javascript:post('page', 'page_num', {{page}})" class="active">{{page}}</a>
+                {% endif %}
+              {% endfor %}
             </form>
           </div>
+      {% endif %}  
     </section><!-- End Team Section -->
   </main><!-- End #main -->
 
