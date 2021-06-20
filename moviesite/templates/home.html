@@ -398,22 +398,28 @@
             const form = document.createElement('form');
             form.method = method;
             form.action = path;
-            const hiddenField = document.createElement('input');
-            hiddenField.type = 'hidden';
-            hiddenField.name = "url";
-            hiddenField.value = getUrl();
-            form.appendChild(hiddenField);
 
             const extraField = document.createElement('input');
             extraField.type = 'hidden';
             extraField.name = key;
             extraField.value = val;
             form.appendChild(extraField);
+
+            let url = getUrl();
+            let search_pos = url.search("movie_search=")
+            let search = url.substring(search_pos+13).replace("+", " ")
+
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = "movie_search";
+            hiddenField.value = search;
+            form.appendChild(hiddenField);
+
             document.body.appendChild(form);
             form.submit();
           }
         </script>
-          <div class="pagination" style="padding-left: 38%;padding-top: 70px;text-align: center;">
+          <div class="pagination" style="padding-left: 41%;padding-top: 70px;text-align: center;">
             <form action="page" method="get" style="margin-left: 25px;">
               <!--<a href="javascript:post('page', 'page_num', '1')">1</a>
               <a href="javascript:post('page', 'page_num', '2')" class="active">2</a>

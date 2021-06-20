@@ -56,16 +56,12 @@ async def home(request):
                                                  "show_page": -1, "page_num": -1, "pages": [1,2,3,4,5],},) #{} is context dictionary
 
 def page(request):
-     print("new page requested!")
-     print("Request : " + str(request.GET))
-     init_url = request.GET.get("url")
-     search_pos = init_url.find("movie_search=") #movie_search => 12 chars
-     base_string = init_url[search_pos+13:].replace("+", " ")
-
-     print("BASE STRING: " + base_string)
+     base_string = request.GET.get("movie_search")
      page_num = int(request.GET.get("page_num"))
+     '''
+     print("BASE STRING: " + base_string)
      print("PAGE NUM: " + str(page_num))
-
+     '''
      movie_list = [] #Movie List for Top carousel
      movie_list = get_movie(base_string, movie_list, 2*page_num-2, 2*page_num)
      #movie_main = pageValPair(movie_list, 5)
