@@ -5,72 +5,50 @@ client = OMDBClient(apikey="d5193665")
 char_lim = 100 #Plot shortened to 100 chars at top carousel
 num_sections = 3 #number of sections in our slides (we can increase this if we want) => Each secton = 4 slides
 
+def getDescsFromMovies(list):
+     deep_movie_desc = []
+     for movie in list:
+          temp_sect = client.get(title = movie["title"], tomatoes=True)
+          if(temp_sect["poster"] != "N/A"):
+               if(len(temp_sect["plot"]) > char_lim):
+                    temp_sect["plot_full"] = temp_sect["plot"]
+                    temp_sect["plot"] = (temp_sect["plot"])[0:char_lim-3] + " ..."
+               deep_movie_desc.append(temp_sect)
+     return deep_movie_desc
+
+def get_movie(name, start_list, start_page, end_page):
+     output = start_list
+     for i in range(start_page, end_page):
+          output.extend(client.search_movie(name, page = i))
+     output = sort_movies("year", output)
+     return output
+
+def sort_movies(metric, list):
+     temp_list = sorted(list, key = lambda x:x[metric], reverse=True)
+     return temp_list
+
+class pageValPair:
+     def __init__(self, list, pageNum):
+          self.list = list
+          self.pageNum = pageNum
+'''
+test_list = get_movie("Superman", [], 5, 0)
+print(test_list)
+print(" \n AND DESCS: \n")
+desc_list = getDescsFromMovies(test_list)
+print(desc_list)
+'''
 def home(request):
     #Begin Initial Search
     if(request.GET.get('movie_search')):
-         #Code for top carousel
-         movie_archive = {} #Hashmap used to check if a movie has already been displayed, avoiding repetition
          movie_list = [] #Movie List for Top carousel
          base_string = request.GET.get('movie_search')
-         tries = 0
-         while(len(movie_list) <= 0 and len(base_string) > 0 and tries < 5): #Add deeper search via multiple movie searches
-               temp_list = client.search_movie(base_string)
-               movie_list = []
-               for movie in temp_list:
-                    if movie["poster"] != "N/A": #Filter Movies without posters for top Carousel
-                         movie_list.append(movie)
-               base_string = base_string[0:len(base_string)-1]
-               tries+=1
-         movie_descs = []
-         counter = 0
-         for movie in movie_list:
-              holder = client.get(title=movie["title"], tomatoes=True)
-              in_arch = in_archive(movie_archive, holder["imdb_id"], holder["runtime"])
-              if(in_arch == False):
-                   movie_descs.append(holder)
-                   movie_descs[counter]["plot_full"] = movie_descs[counter]["plot"] #Full-Plot Feature
-                   curr_desc = movie_descs[counter]
-                   if(len(curr_desc["plot"]) > char_lim):
-                        curr_desc["plot"] = (curr_desc["plot"])[0:char_lim-3] + " ..." #Reduced Plot Feature
-                        movie_descs[counter] = curr_desc
-                   counter+=1
-              else:
-                   movie_descs.append(holder)
-                   movie_descs[counter]["plot_full"] = movie_descs[counter]["plot"]
-                   curr_desc = movie_descs[counter]
-                   if(len(curr_desc["plot"]) > char_lim):
-                        curr_desc["plot"] = (curr_desc["plot"])[0:char_lim-3] + " ..."
-                        movie_descs[counter] = curr_desc
-                   counter+=1
-         movie_descs = sorted(movie_descs, key = lambda x:x["year"], reverse=True) #Sort movies by year for relevance
-
-         #Code for extended results Slider
-         if len(movie_descs) > 4*num_sections:
-              movie_sects = movie_descs[0:4*num_sections]
-         else:
-               movie_sects = movie_descs[0:len(movie_descs)]
-               limit_reached = False
-               while(len(movie_sects) < 4*num_sections and len(base_string) > 0 and limit_reached == False):
-                    base_string = base_string[0:len(base_string)-1]
-                    temp_movie_list = client.search_movie(base_string)
-                    for movie in temp_movie_list:
-                         if(len(movie_sects) >= 4*num_sections):
-                              limit_reached = True
-                              break
-                         else:
-                              holder = client.get(title = movie["title"], tomatoes=True)
-                              in_arch = in_archive(movie_archive, holder["imdb_id"], holder["runtime"])
-                              if(in_arch == False):
-                                   if(holder["poster"] != "N/A"):
-                                        movie_sects.append(holder)
-                              else:
-                                   if(holder["poster"] != "N/A"):
-                                        movie_sects.append(holder)
-
-         #Code for Deep Results : Using Keyword "The"
-         deep_search_movies = deep_search(base_string, movie_sects, movie_archive)
-         return render(request,'home.html', context={"movies": movie_list, "desc": movie_descs, "desc_rem": movie_descs[1:], "movie_sect1": movie_sects[0:4],
-                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):], "deep_movies": deep_search_movies},)
+         movie_list = get_movie(base_string, movie_list, 0, 3)
+         #movie_main = pageValPair(movie_list, 5)
+         movie_descs = getDescsFromMovies(movie_list)
+         movie_sects = movie_descs.copy()
+         return render(request,'home.html', context={"desc": movie_descs, "desc_rem": movie_descs[1:], "movie_sect1": movie_sects[0:4],
+                                                 "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):], "deep_movies": movie_sects},)
 
     
     #Landing search when user first lands on homepage
@@ -106,6 +84,7 @@ def home(request):
     return render(request, 'home.html', context={"desc": movie_descs, "desc_rem":movie_descs[1:], "movie_sect1": movie_sects[0:4],
                                                  "movie_sect2": movie_sects[4:8], "movie_sect3":movie_sects[8:12],"movie_rem": movie_sects[len(movie_descs):],"deep_movies": movie_sects},) #{} is context dictionary
 
+'''
 def filter_no_poster(movie):
      if len(movie["poster"]) == 0:
           return False
@@ -130,4 +109,6 @@ def deep_search(base_string, start_movies, archive):
                          temp_sect["plot"] = (temp_sect["plot"])[0:char_lim-3] + " ..."
                     deep_movie_desc.append(temp_sect)
      return deep_movie_desc
+'''
+
      
