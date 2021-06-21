@@ -71,15 +71,13 @@
                   <a href="https://www.youtube.com/watch?v=Y1wdBLxA-Kg" class="glightbox btn-watch-video" style="margin-bottom: 100px;"><i class="bi bi-play-circle"></i><span>Watch Trailer</span></a>
                 </div>
               </div>
-              <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                <img src = {{desc.0.poster}} class="img-fluid poster-src" style="width: 700px;"  alt=""/>
-              </div>
+              <img src = {{desc.0.poster}} class="img-fluid poster-src col-lg-6 order-1 order-lg-2 hero-img" style="height: 100%;"  alt=""/>
             </div>
           </div>
         </div>
       </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal{{desc.0.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade slider_btn" id="exampleModal{{desc.0.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content" style="height: 580px;">
               <div class="modal-header" style="background-color: #47b2e4;">
@@ -144,7 +142,7 @@
         </div>
       </div>
         <!-- Modal -->
-      <div class="modal fade" id="exampleModal{{movie.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade slider_btn" id="exampleModal{{movie.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="height: 580px;">
             <div class="modal-header" style="background-color: #47b2e4;">
@@ -196,13 +194,24 @@
   </section><!-- End Hero -->
 
   <main id="main">
-
     <!-- ======= Slider Section ======= -->
     <section id="about" style="background-color: rgb(9, 28, 44); height: 360px;">
       <h4 style="color: white; position:relative; left: 20px; bottom: 20px; font-family: 'Courier New', monospace;">Extended Results</h4>
       <div class="wrapper" style="position: relative; bottom: 100px;">
+        <script>
+          $(document).ready(function () {
+              const slider_btn = $('.slider_btn');
+              slider_btn.click(() => {
+                setTimeout(() => {
+                  removeHash();},0);
+              });
+          function removeHash() {
+            history.replaceState('', document.title, window.location.origin + window.location.pathname + window.location.search);
+          }
+        });
+        </script>
         <section id="section1">
-          <a href="#section3" class="arrow__btn left-arrow" style="padding-top: 65px;">‹</a>
+          <a href="#section3" class="arrow__btn left-arrow slider_btn" style="padding-top: 65px;">‹</a>
           {% for movie in movie_sect1 %}
           <div class="item" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">
             <a href="#">
@@ -215,11 +224,11 @@
             </a>
           </div>
           {% endfor %}
-          <a href="#section2" class="arrow__btn right-arrow" style="padding-top: 65px;">›</a>
+          <a href="#section2" class="arrow__btn right-arrow slider_btn" style="padding-top: 65px;">›</a>
         </section>
       
         <section id="section2">
-          <a href="#section1" class="arrow__btn left-arrow" style="padding-top: 65px;">‹</a>
+          <a href="#section1" class="arrow__btn left-arrow slider_btn" style="padding-top: 65px;">‹</a>
           {% for movie in movie_sect2 %}
             <div class="item" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">
               <a href="#">
@@ -232,11 +241,11 @@
               </a>
             </div>
           {% endfor %}
-          <a href="#section3" class="arrow__btn right-arrow" style="padding-top: 65px;">›</a>
+          <a href="#section3" class="arrow__btn right-arrow slider_btn" style="padding-top: 65px;">›</a>
         </section>
       
         <section id="section3">
-          <a href="#section2" class="arrow__btn left-arrow" style="padding-top: 65px;">‹</a>
+          <a href="#section2" class="arrow__btn left-arrow slider_btn" style="padding-top: 65px;">‹</a>
           {% for movie in movie_sect3 %}
           <div class="item" data-toggle="modal" data-target="#exampleModal{{movie.imdb_id}}">
             <a href="#">
@@ -249,8 +258,10 @@
             </a>
           </div>
           {% endfor %}
+          <a href="#section1" class="arrow__btn right-arrow slider_btn" style="padding-top: 65px;">›</a>
+          </section>
           {% for movie in movie_rem%}
-          <div class="modal fade" id="exampleModal{{movie.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade slider_btn" id="exampleModal{{movie.imdb_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content" style="height: 580px;">
                 <div class="modal-header" style="background-color: #47b2e4;">

@@ -294,11 +294,6 @@
 
 
 
-
-
-
-
-
   $(document).ready(function() {
 var $imagesCarousel = $('.carouselOfImages').flickity({
   contain: true,
