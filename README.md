@@ -9,6 +9,10 @@ new movies gives us a steady diet of new media to consume either on the big scre
 The vast number of movies in existence can make it difficult to recall movie details like release date, director, awards, etc. For this challenge, we want you to create a webapp 
 that can surface movie information using an open database API. 
 
-### Preferred Browser
-Chrome
+### Browser Support
+Chrome - Working
+Safari - Issue
+Firefox - Working
+Opera - Working
+Edge - Working
 
