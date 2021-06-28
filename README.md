@@ -10,9 +10,9 @@ The vast number of movies in existence can make it difficult to recall movie det
 that can surface movie information using an open database API. 
 
 ### Browser Support
-Chrome - Working
-Safari - Issue
-Firefox - Working
-Opera - Working
-Edge - Working
+Chrome - Working <br>
+Safari - Issue <br>
+Firefox - Working <br>
+Opera - Working <br>
+Edge - Working <br>
 
