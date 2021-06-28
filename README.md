@@ -8,3 +8,7 @@ Movies can have a tremendous impact on both individuals as well as the broader s
 new movies gives us a steady diet of new media to consume either on the big screen or from the comfort of our own homes. 
 The vast number of movies in existence can make it difficult to recall movie details like release date, director, awards, etc. For this challenge, we want you to create a webapp 
 that can surface movie information using an open database API. 
+
+### Preferred Browser
+Chrome
+
